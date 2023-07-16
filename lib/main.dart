@@ -1,3 +1,4 @@
+import 'package:applovin_poc/ad_combo.dart';
 import 'package:applovin_poc/utils/constants.dart';
 import 'package:applovin_poc/widgets/banner_ad.dart';
 import 'package:flutter/material.dart';
@@ -113,6 +114,17 @@ var _isWidgetBannerShowing = false;
                   }
                 : null,
             child: const Text("Show Native Ad"),
+          ),
+          ElevatedButton(
+            onPressed: (_isInitialized)
+                ? () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AdCombo()),
+                    );
+                  }
+                : null,
+            child: const Text("Ad Combo"),
           ),
           
           SingleChildScrollView(

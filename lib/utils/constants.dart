@@ -7,6 +7,9 @@ class Constants{
   static String bannerAdUnitId = Platform.isAndroid ? "43fd08bd5b8eba93" : "";
   static String nativeAdUnitId = Platform.isAndroid ? "182018c4e38301fe" : "";
 
+  static String disableAdsText='Disable ads';
+  static String enableAdsText='Enable ads';
+
 
 
 

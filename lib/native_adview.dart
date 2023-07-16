@@ -26,7 +26,8 @@ class NativeAdViewState extends State<NativeAdView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: 
+      Container(
         margin: const EdgeInsets.all(8.0),
         height: double.infinity,
         child: MaxNativeAdView(
@@ -128,6 +129,7 @@ class NativeAdViewState extends State<NativeAdView> {
           ),
         ),
       ),
+    
     );
   }
 }

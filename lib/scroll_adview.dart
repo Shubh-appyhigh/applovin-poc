@@ -1,4 +1,5 @@
 import 'package:applovin_max/applovin_max.dart';
+import 'package:applovin_poc/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class ScrolledAdView extends StatefulWidget {
@@ -24,7 +25,7 @@ class ScrolledAdViewState extends State<ScrolledAdView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Scrolled Banner / MREC'),
+          title: const Text('Scrolled Banner'),
         ),
         body: SafeArea(
             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -35,7 +36,7 @@ class ScrolledAdViewState extends State<ScrolledAdView> {
                 _isAdEnabled = !_isAdEnabled;
               });
             },
-            child: _isAdEnabled ? const Text('Disable ads') : const Text('Enable ads'),
+            child: _isAdEnabled ? Text(Constants.disableAdsText) :  Text(Constants.enableAdsText),
           ),
           Expanded(
             child: ListView.builder(
