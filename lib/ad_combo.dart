@@ -6,10 +6,10 @@ class AdCombo extends StatefulWidget {
   const AdCombo({super.key});
 
   @override
-  State<AdCombo> createState() => _AdComboState();
+  State<AdCombo> createState() => AdComboState();
 }
 
-class _AdComboState extends State<AdCombo> {
+class AdComboState extends State<AdCombo> {
   static const double _kMediaViewAspectRatio = 16 / 9;
   double _mediaViewAspectRatio = _kMediaViewAspectRatio;
   bool _adLoaded = false;
@@ -17,16 +17,21 @@ class _AdComboState extends State<AdCombo> {
   final MaxNativeAdViewController _nativeAdViewController =
       MaxNativeAdViewController();
 
+  Future<void> loadAd() async {
+    _nativeAdViewController.loadAd();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    AppLovinMAX.setBannerExtraParameter(
+        Constants.bannerAdUnitId, "adaptive_banner", "true");
     return SafeArea(
         child: Scaffold(
       body:
           // SingleChildScrollView(
           Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
         // mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -34,8 +39,9 @@ class _AdComboState extends State<AdCombo> {
             "Hello, how are you",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          SizedBox(
+            height: 20,
+            // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: MaxAdView(
               adFormat: AdFormat.banner,
               adUnitId: Constants.bannerAdUnitId,
@@ -175,8 +181,8 @@ class _AdComboState extends State<AdCombo> {
           //   ),
           // ),
           Container(
-            margin: const EdgeInsets.all(8.0),
-            height: size.width,
+            height: 150,
+            width: 468,
             child: MaxNativeAdView(
               adUnitId: Constants.nativeAdUnitId,
               controller: _nativeAdViewController,
@@ -197,75 +203,18 @@ class _AdComboState extends State<AdCombo> {
                 print('AdCombo Native ad revenue paid: ${ad.revenue}');
               }),
               child: Container(
-                height: size.width / 3,
-                width: double.infinity,
+                height: 60,
+                width: 468,
                 color: !_adLoaded
                     ? Colors.transparent
                     : Color.fromARGB(255, 232, 224, 71),
-                // padding: const EdgeInsets.all(8.0),
                 child: Row(
-                  // mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Container(
-                    //       padding: const EdgeInsets.all(4.0),
-                    //       child: const MaxNativeAdIconView(
-                    //         width: 60,
-                    //         height: 60,
-                    //       ),
-                    //     ),
-                    //     Flexible(
-                    //       child: Column(
-                    //         mainAxisAlignment: MainAxisAlignment.start,
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           MaxNativeAdTitleView(
-                    //             style: TextStyle(
-                    //                 fontWeight: FontWeight.bold,
-                    //                 fontSize: 16),
-                    //             maxLines: 1,
-                    //             overflow: TextOverflow.visible,
-                    //           ),
-                    //           MaxNativeAdAdvertiserView(
-                    //             style: TextStyle(
-                    //                 fontWeight: FontWeight.normal,
-                    //                 fontSize: 10),
-                    //             maxLines: 1,
-                    //             overflow: TextOverflow.fade,
-                    //           ),
-                    //           MaxNativeAdStarRatingView(
-                    //             size: 20,
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //     const MaxNativeAdOptionsView(
-                    //       width: 40,
-                    //       height: 40,
-                    //     ),
-                    //   ],
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   children: [
-                    //     Flexible(
-                    //       child: MaxNativeAdBodyView(
-                    //         style: TextStyle(
-                    //             fontWeight: FontWeight.normal,
-                    //             fontSize: 14),
-                    //         maxLines: 3,
-                    //         overflow: TextOverflow.ellipsis,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // const SizedBox(height: 8),
                     Expanded(
                       child: MaxNativeAdMediaView(),
                     ),
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -302,9 +251,8 @@ class _AdComboState extends State<AdCombo> {
                             backgroundColor: MaterialStatePropertyAll(!_adLoaded
                                 ? Colors.transparent
                                 : Color.fromARGB(255, 11, 123, 151)),
-                              foregroundColor: MaterialStatePropertyAll(!_adLoaded
-                                ? Colors.transparent
-                                : Colors.white),
+                            foregroundColor: MaterialStatePropertyAll(
+                                !_adLoaded ? Colors.transparent : Colors.white),
                             textStyle: MaterialStatePropertyAll(TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.bold)),
                           ),
@@ -312,8 +260,14 @@ class _AdComboState extends State<AdCombo> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            MaxNativeAdIconView(height: 20,width: 20,),
-                            MaxNativeAdOptionsView(height: 20,width: 20,),
+                            MaxNativeAdIconView(
+                              height: 20,
+                              width: 20,
+                            ),
+                            MaxNativeAdOptionsView(
+                              height: 20,
+                              width: 20,
+                            ),
                           ],
                         )
                       ],
@@ -337,12 +291,16 @@ class _AdComboState extends State<AdCombo> {
                 ),
               ),
             ),
+          
           ),
+          SizedBox(
+            height: 55,
+          )
 
-          Text(
-            "See You Soon!",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-          ),
+          // Text(
+          //   "See You Soon!",
+          //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+          // ),
         ],
       ),
       // ),

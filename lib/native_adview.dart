@@ -30,7 +30,8 @@ class NativeAdViewState extends State<NativeAdView> {
       Container(
         margin: const EdgeInsets.all(8.0),
         height: double.infinity,
-        child: MaxNativeAdView(
+        child: 
+        MaxNativeAdView(
           adUnitId: Constants.nativeAdUnitId,
           controller: _nativeAdViewController,
           listener: NativeAdListener(onAdLoadedCallback: (ad) {
@@ -128,6 +129,7 @@ class NativeAdViewState extends State<NativeAdView> {
             ),
           ),
         ),
+      
       ),
     
     );
